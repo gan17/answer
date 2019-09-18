@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Age;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -16,7 +17,8 @@ class FrontController extends Controller
     #入力画面
     public function index()
     {
-        return view('front.index');
+        $ages = Age::all()->toArray();
+        return view('front.index',compact('ages'));
     }
 
     //確認画面

@@ -40,13 +40,10 @@
           <td>
 
             <select name="age_id" class="form-control">
-                <option value="0">選択して下さい</option>
-                <option value="1">10代以下</option>
-                <option value="2">20代</option>
-                <option value="3">30代</option>
-                <option value="4">40代</option>
-                <option value="5">50代</option>
-                <option value="6">60代以上</option>
+              <option value="0">選択して下さい</option>
+              @foreach($ages as $age)
+              <option value="{{$age['sort']}}">{{$age['age']}}</option>
+              @endforeach
             </select>
 
             @if($errors->has('age_id'))

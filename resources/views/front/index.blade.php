@@ -28,9 +28,8 @@
           <td>性別 <label style="color:red">※</label></td>
           <td>
             <div class="form-group">
-              <input type="radio" name="gender" value="1" checked> 男性　
-              <input type="radio" name="gender" value="2"> 女性<br>
-
+              <input type="radio" name="gender" value="1" {!! old('gender') == "1" ? 'checked="checked"' : '' !!} checked> 男性
+              <input type="radio" name="gender" value="2" {!! old('gender') == "2" ? 'checked="checked"' : '' !!}> 女性
             </div>
           </td>
         </tr>
@@ -40,9 +39,11 @@
           <td>
 
             <select name="age_id" class="form-control">
-              <option value="0">選択して下さい</option>
-              @foreach($ages as $age)
-              <option value="{{$age['sort']}}">{{$age['age']}}</option>
+              <option value="">選択して下さい</option>
+              @foreach ($ages as $age)
+                <option value="{{ $age->sort }}" {!! old('age_id') == "$age->sort" ? 'selected="selected"' : '' !!}>
+                    {{ $age->age }}
+                </option>
               @endforeach
             </select>
 
@@ -65,7 +66,7 @@
         <tr>
           <td>メール送信可否</td>
           <td><br>登録したメールアドレスにメールマガジンをお送りしてもよろしいですか？<br>
-            <input type="checkbox" name="is_send_email"  value="1" checked> 送信を許可します<br>
+            <input type="checkbox" name="is_send_email" value="1" {!! empty(old()) || old('is_send_email') == 1 ? 'checked="checked"' : '' !!}>送信を許可します<br>
           </td>
         </tr>
 

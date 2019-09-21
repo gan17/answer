@@ -17,18 +17,19 @@ class FrontController extends Controller
     #入力画面
     public function index()
     {
-        $ages = Age::all()->toArray();
-        return view('front.index',compact('ages'));
+       $ages = Age::all();
+       return view('front.index',compact('ages'));
     }
 
     //確認画面
     public function confirm(Request $request)
     {
+
       $validate_rule = [
         'fullname' => 'required',
         'age_id' => 'required',
         'email' => 'email',
-        'feedback' => 'max:10000',
+        'feedback' => 'required|max:10000',
       ];
 
       $fullname = $request->input('fullname');
@@ -74,7 +75,7 @@ class FrontController extends Controller
       );
 
       $answer->save();
-      return view('front.index')->with('success', '送信しました！');
+      return redirect()->route('index')->with('success', 'アンケートを送信しました');
     }
 
     /**

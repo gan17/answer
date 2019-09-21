@@ -2,12 +2,22 @@
 @section('title','システムへのご意見をお聞かせください')
 @section('content')
 
-@if(count($errors) > 0)
 
-@endif
+
 <div class="container">
   <div class="row">
-    <div class="col-md-12"><br />
+    <div class="col-md-12">
+
+      <div class="form-group">
+      @if(\Session::has('success'))
+      <br />
+        <div class="alert alert-info">
+          <p align="center">{{ \Session::get('success')}}</p>
+        </div>
+      @endif
+      </div>
+
+      <br />
     <h3 align="center">システムへのご意見を聞かせてください</h3><br />
     <form method="post" action="{{route('confirm')}}" enctype="multipart/form-data">
       {{csrf_field()}}
@@ -40,11 +50,17 @@
 
             <select name="age_id" class="form-control">
               <option value="">選択して下さい</option>
-              @foreach ($ages as $age)
-                <option value="{{ $age->sort }}" {!! old('age_id') == "$age->sort" ? 'selected="selected"' : '' !!}>
-                    {{ $age->age }}
-                </option>
-              @endforeach
+              @if(isset($ages))
+
+                @foreach ($ages as $age)
+                  <option value="{{ $age->sort }}" {!! old('age_id') == "$age->sort" ? 'selected="selected"' : '' !!}>
+                      {{ $age->age }}
+                  </option>
+                @endforeach
+
+              @else
+                <p>not found..!</p>
+              @endif
             </select>
 
             @if($errors->has('age_id'))

@@ -57,6 +57,15 @@
 　　</div>
 
     <div class="form-group">
+    @if(\Session::has('success'))
+    <br />
+      <div class="alert alert-info">
+        <p align="center">{{ \Session::get('success')}}</p>
+      </div>
+    @endif
+    </div>
+
+    <div class="form-group">
       <input type="submit" class="btn btn-danger" value=" 選択したアンケートを削除 "/>
 
       <!--  ページリンクを表示 -->

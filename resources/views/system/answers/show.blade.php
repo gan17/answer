@@ -51,14 +51,14 @@
 
     <div class="form-group" align="center">
 
-      <form method="post" action="{{URL::previous()}}" enctype="multipart/form-data">
+
+      <form method="post" action="{{action('AnswersController@destroy',$answers['id'])}}" onsubmit="return(confirm('削除してもよろしいですか?'))">
+        {{ method_field('DELETE')}}
         {{csrf_field()}}
-
+              
         <!-- 一覧画面に戻る -->
-        <a href="{{ url('system/answers')}}" class="btn btn-success">一覧に戻る</a>
-
-        <!--  アンケート削除する -->
-        <button type="submit" name="action" value="back" class="btn btn-danger">削除</button>
+        <a href="javascript:history.back();" class="btn btn-success">一覧に戻る</a>
+        <button type="submit" class="btn btn-danger">削除</button>
       </form>
 
     </div>

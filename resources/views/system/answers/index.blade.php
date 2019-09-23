@@ -56,9 +56,15 @@
        </form>
 　　</div>
 
-    <!-- アンケート一覧部分 -->
-    <br/><br/>
-    <input type="submit" class="btn btn-danger" value=" 選択したアンケートを削除 "/>
+    <div class="form-group">
+      <input type="submit" class="btn btn-danger" value=" 選択したアンケートを削除 "/>
+
+      <!--  ページリンクを表示 -->
+      {{ '全 '. $answers -> total() .' 件中   ' }}
+      {{ $answers -> firstItem() . ' ~ ' . $answers -> lastItem() . ' 件 ' }}
+      {{ $answers -> links() }}
+    </div>
+
         <table class="table">
           <thead >
             <tr>
@@ -72,16 +78,37 @@
             </tr>
           </thead>
           <tbody>
+          <!-- アンケート一覧 -->
           @foreach($answers as $row)
             <tr>
               <th><input type="checkbox" name="is_send_email"  value="1">　選択</th>
               <th scope="row"><span class="badge">{{$row['id']}}</span></th>
               <td>{{$row['fullname']}}</td>
-              <td>{{$row['gender']}}</td>
-              <td>{{$row['age_id']}}</td>
-              <td>{!! nl2br(htmlspecialchars($row['feedback'], ENT_QUOTES, 'UTF-8', false), false) !!}</td>
               <td>
-                <a href="{{action('AnswersController@show',$row['id'])}}" ><button type="submit" class="btn btn-primary">編集</button></a>
+                  @if($row['gender'] == 1)
+                    男性
+                  @else
+                    女性
+                  @endif
+              </td>
+              <td>@if($row['age_id'] == 1)
+                    10代以下
+                  @elseif($row['age_id'] == 2)
+                    20代
+                  @elseif($row['age_id'] == 3)
+                    30代
+                  @elseif($row['age_id'] == 4)
+                    40代
+                  @elseif($row['age_id'] == 5)
+                    50代
+                  @elseif($row['age_id'] == 6)
+                    60代以上
+                  @endif
+              </td>
+              <td>
+                {{ strip_tags(str_limit($row['feedback'], 32, '...', '<br>')) }}</td>
+              <td>
+                <a href="" ><button type="submit" class="btn btn-primary">編集</button></a>
               </td>
             </tr>
           @endforeach

@@ -14,15 +14,9 @@ class AnswersController extends Controller
      */
     public function index()
     {
-        return view('system.answers.index');
+      $answers = Answer::Paginate(10);
+      return view('system.answers.index',compact('answers'));
     }
-
-    public function list()
-    {
-        $answers = Answer::all()->toArray();
-        return view('system.answers.index',compact('answers'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *

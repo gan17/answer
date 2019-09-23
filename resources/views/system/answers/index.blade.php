@@ -108,7 +108,7 @@
               <td>
                 {{ strip_tags(str_limit($row['feedback'], 32, '...', '<br>')) }}</td>
               <td>
-                <a href="" ><button type="submit" class="btn btn-primary">編集</button></a>
+                <a href="{{action('AnswersController@show', $row['id'])}}" ><button type="submit" class="btn btn-primary">編集</button></a>
               </td>
             </tr>
           @endforeach

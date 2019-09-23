@@ -51,7 +51,7 @@ class AnswersController extends Controller
      */
     public function show($id)
     {
-      $answers = Answer::fine($id);
+      $answers = Answer::find($id);
       return view('system.answers.show', compact('answers','id'));
     }
 

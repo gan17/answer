@@ -49,7 +49,7 @@
 
        <div class="form-group" align="center">
          <br/>
-         <input type="reset" class="btn btn-default" value=" リセット "/>
+         <button onClick="window.location.reload();" class="btn btn-default" >リセット</button>
          <input type="submit" class="btn btn-success" value=" 検索 "/>
        </div>
 
@@ -75,7 +75,7 @@
       </table>
     </div>
 
-        <table class="table">
+        <table class="table table-hover">
           <thead >
             <tr>
               <th scope="col">全選択</th>

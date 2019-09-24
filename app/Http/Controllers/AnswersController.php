@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Age;
 use Request;
 
 //use Illuminate\Http\Request;
@@ -52,8 +53,9 @@ class AnswersController extends Controller
           $query->whereBetween('created_at', [$s_date_from , $s_date_to]);
       }
 
+      $ages = Age::all();
       $answers = $query->Paginate(10);
-      return view('system.answers.index', compact('answers', 's_fullname', 's_gender', 's_age_id', '$s_is_send_email', '$s_keyword', '$s_date_from', '$s_date_to'));
+      return view('system.answers.index', compact('ages', 'answers', 's_fullname', 's_gender', 's_age_id', '$s_is_send_email', '$s_keyword', '$s_date_from', '$s_date_to'));
 
     }
 

@@ -17,14 +17,19 @@
                 氏名<input type="text" name="s_fullname" class="form-control" placeholder="入力してください" />
               </td>
               <td>年代
-                <select name="s_age_id" class="form-control">
-                   <option value="0">選択して下さい</option>
-                   <option value="1">10代以下</option>
-                   <option value="2">20代</option>
-                   <option value="3">30代</option>
-                   <option value="4">40代</option>
-                   <option value="5">50代</option>
-                   <option value="6">60代以上</option>
+               <select name="s_age_id" class="form-control">
+                 <option value="">選択して下さい</option>
+                 @if(isset($ages))
+
+                   @foreach ($ages as $age)
+                     <option value="{{ $age->sort }}">
+                        {{ $age->age }}
+                     </option>
+                   @endforeach
+
+                 @else
+                   <p>not found..!</p>
+                 @endif
                </select>
              </td>
               <td>性別

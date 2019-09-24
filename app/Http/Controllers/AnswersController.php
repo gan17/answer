@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
-use Illuminate\Http\Request;
+use Request;
+
+//use Illuminate\Http\Request;
 
 class AnswersController extends Controller
 {
@@ -17,10 +19,37 @@ class AnswersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $answers = Answer::Paginate(10);
-      return view('system.answers.index',compact('answers'));
+
+      $s_fullname = Request::input('s_fullname');
+      $s_gender = Request::input('s_gender');
+      $s_age_id = Request::input('s_age_id');
+      $s_is_send_email = Request::input('s_is_send_email');
+      $s_keyword = Request::input('s_keyword');
+
+      $query = Answer::query();
+
+      if(!empty($s_fullname)) {
+          $query->where('fullname', 'like', '%'.$s_fullname.'%');
+      }
+      if(!empty($s_gender)) {
+          $query->where('gender', '=', $s_gender);
+      }
+      if(!empty($s_age_id)) {
+          $query->where('age_id', '=', $s_age_id);
+      }
+      if(!empty($s_is_send_email)) {
+          $query->where('is_send_email', '=', $s_is_send_email);
+      }
+      if(!empty($s_keyword)) {
+          $query->where('email', 'like', '%'.$s_keyword.'%')
+                ->orwhere('feedback', 'like', '%'.$s_keyword.'%');
+      }
+
+      $answers = $query->Paginate(10);
+      return view('system.answers.index', compact('answers', 's_fullname', 's_gender', 's_age_id', '$s_is_send_email', '$s_keyword'));
+
     }
 
     /**

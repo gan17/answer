@@ -27,6 +27,8 @@ class AnswersController extends Controller
       $s_age_id = Request::input('s_age_id');
       $s_is_send_email = Request::input('s_is_send_email');
       $s_keyword = Request::input('s_keyword');
+      $s_date_from = Request::input('s_date_from');
+      $s_date_to = Request::input('s_date_to');
 
       $query = Answer::query();
 
@@ -46,9 +48,12 @@ class AnswersController extends Controller
           $query->where('email', 'like', '%'.$s_keyword.'%')
                 ->orwhere('feedback', 'like', '%'.$s_keyword.'%');
       }
+      if(!empty($s_date_from) and !empty($s_date_to)) {
+          $query->whereBetween('created_at', [$s_date_from , $s_date_to]);
+      }
 
       $answers = $query->Paginate(10);
-      return view('system.answers.index', compact('answers', 's_fullname', 's_gender', 's_age_id', '$s_is_send_email', '$s_keyword'));
+      return view('system.answers.index', compact('answers', 's_fullname', 's_gender', 's_age_id', '$s_is_send_email', '$s_keyword', '$s_date_from', '$s_date_to'));
 
     }
 

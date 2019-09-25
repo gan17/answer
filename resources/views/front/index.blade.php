@@ -89,7 +89,7 @@
         <tr>
           <td>ご意見</td>
           <td><br/>
-            <textarea name="feedback" rows="5" cols="30" class="form-control" value="{{ old('feedback') }}" placeholder="入力してください" ></textarea>
+            <textarea name="feedback" rows="5" cols="30" class="form-control" placeholder="入力してください" >{{ old('feedback') }}</textarea>
           </td>
         </tr>
     </table>

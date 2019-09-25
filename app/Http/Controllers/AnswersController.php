@@ -6,6 +6,7 @@ use App\Answer;
 use App\Age;
 use Request;
 
+use Illuminate\Support\Facades\Input;
 //use Illuminate\Http\Request;
 
 class AnswersController extends Controller
@@ -54,8 +55,22 @@ class AnswersController extends Controller
       }
 
       $ages = Age::all();
-      $answers = $query->Paginate(10);
-      return view('system.answers.index', compact('ages', 'answers', 's_fullname', 's_gender', 's_age_id', '$s_is_send_email', '$s_keyword', '$s_date_from', '$s_date_to'));
+      $answers = $query->join('ages','ages.id', '=', 'answers.age_id')
+                       ->select('answers.id', 'answers.fullname', 'answers.gender', 'answers.email', 'answers.is_send_email', 'answers.feedback', 'answers.created_at', 'ages.age')
+                       ->orderby('answers.id','asc')
+                       ->Paginate(10);
+
+
+      $answers->appends(array(
+                      's_fullname' => Input::get('s_fullname'),
+                      's_gender' => Input::get('s_gender'),
+                      's_age_id' => Input::get('s_age_id'),
+                      's_is_send_email' => Input::get('s_is_send_email'),
+                      's_keyword' => Input::get('s_keyword'),
+                      's_date_from' => Input::get('s_date_from'),
+                      's_date_to' => Input::get('s_date_to'),
+      ));
+      return view('system.answers.index', compact('ages', 'answers'));
 
     }
 
@@ -67,7 +82,7 @@ class AnswersController extends Controller
      */
     public function show($id)
     {
-      $answers = Answer::find($id);
+      $answers = Answer::join('ages','ages.id', '=', 'answers.age_id')->find($id);
       return view('system.answers.show', compact('answers','id'));
     }
 

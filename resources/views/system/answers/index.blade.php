@@ -9,7 +9,7 @@
 
      <!-- 検索部分 -->
       <div class="well">
-       <form method="GET" action="{{ URL('system/answers') }}" enctype="multipart/form-data">
+        <form method="GET" action="{{ URL('system/answers') }}" enctype="multipart/form-data">
          {{csrf_field()}}
          <table>
             <tr>
@@ -73,9 +73,9 @@
     <div class="form-group">
       <table class="table table-borderless">
           <tr>
-            <td align="left"><br><input type="submit" class="btn btn-danger" value=" 選択したアンケートを削除 "/></td>
-
-            <td style="width:50%"  align="right">{{ '全&nbsp;'. $answers -> total() .'&nbsp;件中&nbsp;&nbsp;&nbsp;' . $answers -> firstItem() . ' ~ ' . $answers -> lastItem() . ' 件&nbsp;&nbsp; ' }}  {{ $answers -> render() }}</td>
+            <td style="width:50%" align="left"><br><input type="submit" class="btn btn-danger" value=" 選択したアンケートを削除 "/></td>
+            <td align="right"><br>{{ '全&nbsp;'. $answers -> total() .'&nbsp;件中&nbsp;&nbsp;&nbsp;' . $answers -> firstItem() . ' ~ ' . $answers -> lastItem() . ' 件&nbsp;&nbsp; ' }}</td>
+            <td align="right">{{ $answers -> render() }}</td>
           </tr>
       </table>
     </div>
@@ -110,20 +110,7 @@
                     女性
                   @endif
               </td>
-              <td>@if($row['age_id'] == 1)
-                    10代以下
-                  @elseif($row['age_id'] == 2)
-                    20代
-                  @elseif($row['age_id'] == 3)
-                    30代
-                  @elseif($row['age_id'] == 4)
-                    40代
-                  @elseif($row['age_id'] == 5)
-                    50代
-                  @elseif($row['age_id'] == 6)
-                    60代以上
-                  @endif
-              </td>
+              <td>{{$row['age']}}</td>
               <td>
                 {{ strip_tags(str_limit($row['feedback'], 32, '...', '<br>')) }}</td>
               <td>

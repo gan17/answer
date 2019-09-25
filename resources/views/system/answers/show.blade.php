@@ -25,7 +25,7 @@
 
         <tr>
           <td>年代</td>
-          <td>{{$answers->age_id}}</td>
+          <td>{{$answers->age}}</td>
         </tr>
 
         <tr>
@@ -55,7 +55,6 @@
       <form method="post" action="{{action('AnswersController@destroy',$answers['id'])}}" onsubmit="return(confirm('削除してもよろしいですか?'))">
         {{ method_field('DELETE')}}
         {{csrf_field()}}
-              
         <!-- 一覧画面に戻る -->
         <a href="javascript:history.back();" class="btn btn-success">一覧に戻る</a>
         <button type="submit" class="btn btn-danger">削除</button>

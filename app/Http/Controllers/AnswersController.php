@@ -21,6 +21,7 @@ class AnswersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //検索画面
     public function index(Request $request)
     {
 
@@ -80,9 +81,12 @@ class AnswersController extends Controller
      * @param  \App\answers  $answers
      * @return \Illuminate\Http\Response
      */
+    //詳細画面
     public function show($id)
     {
-      $answers = Answer::join('ages','ages.id', '=', 'answers.age_id')->find($id);
+      $answers = Answer::join('ages','ages.id', '=', 'answers.age_id')
+                         ->select('answers.id', 'answers.fullname', 'answers.gender', 'ages.age', 'answers.email', 'answers.is_send_email', 'answers.feedback', 'answers.created_at')
+                         ->find($id);
       return view('system.answers.show', compact('answers','id'));
     }
 
@@ -92,11 +96,21 @@ class AnswersController extends Controller
      * @param  \App\answers  $answers
      * @return \Illuminate\Http\Response
      */
+    //単体削除
     public function destroy($id)
     {
        $answers = Answer::find($id);
        $answers->delete();
        return redirect()->route('answers.index')->with('success', '削除しました');
     }
+
+    //複数削除
+    public function deleteAll(Request $request)
+    {
+       $ids = Request::get('ids');
+       $answers = Answer::whereIn('id',explode(",",$ids));
+       $answers->delete();
+       return redirect()->route('answers.index')->with('success', '削除しました');
+	  }
 
 }

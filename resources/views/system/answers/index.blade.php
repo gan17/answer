@@ -9,7 +9,7 @@
 
      <!-- 検索部分 -->
       <div class="well">
-        <form method="GET" action="{{ URL('system/answers') }}" enctype="multipart/form-data">
+        <form method="GET" action="{{route('answers.index')}}" enctype="multipart/form-data">
          {{csrf_field()}}
          <table>
             <tr>
@@ -54,7 +54,7 @@
 
        <div class="form-group" align="center">
          <br/>
-         <button onClick="window.location.reload();" class="btn btn-default" >リセット</button>
+         <a href="{{route('answers.index')}}" onclick="dummy(0);return false;" class="btn btn-default">リセット</a>
          <input type="submit" class="btn btn-success" value=" 検索 "/>
        </div>
 
@@ -73,7 +73,10 @@
     <div class="form-group">
       <table class="table table-borderless">
           <tr>
-            <td style="width:50%" align="left"><br><input type="submit" class="btn btn-danger" value=" 選択したアンケートを削除 "/></td>
+            <td style="width:50%" align="left">
+              <br>
+              <button style="margin-bottom: 10px" class="btn btn-danger delete_all" data-url="{{ url('answersDeleteAll') }}">選択したアンケートを削除</button>
+            </td>
             <td align="right"><br>{{ '全&nbsp;'. $answers -> total() .'&nbsp;件中&nbsp;&nbsp;&nbsp;' . $answers -> firstItem() . ' ~ ' . $answers -> lastItem() . ' 件&nbsp;&nbsp; ' }}</td>
             <td align="right">{{ $answers -> render() }}</td>
           </tr>
@@ -83,7 +86,7 @@
         <table class="table table-hover">
           <thead >
             <tr>
-              <th scope="col">全選択</th>
+              <th scope="col"><input type="checkbox" id="all" />&nbsp;&nbsp;全選択</th>
               <th scope="col">ID</th>
               <th scope="col">氏名</th>
               <th scope="col">性別</th>
@@ -93,14 +96,11 @@
             </tr>
           </thead>
           @if($answers->count())
-
             <!-- アンケート一覧 -->
             @foreach($answers as $row)
           <tbody>
-
-            <tr>
-
-              <th><input type="checkbox" name="is_send_email"  value="1">　選択</th>
+            <tr id="tr_{{$row['id']}}">
+              <th><input type="checkbox" class="sub_chk" data-id="{{$row['id']}}"/>&nbsp;&nbsp;選択</th>
               <th scope="row"><span class="badge">{{$row['id']}}</span></th>
               <td>{{$row['fullname']}}</td>
               <td>
@@ -111,8 +111,7 @@
                   @endif
               </td>
               <td>{{$row['age']}}</td>
-              <td>
-                {{ strip_tags(str_limit($row['feedback'], 32, '...', '<br>')) }}</td>
+              <td>{{ strip_tags(str_limit($row['feedback'], 30, '...', '<br>')) }}</td>
               <td>
                 <a href="{{action('AnswersController@show', $row['id'])}}" ><button type="submit" class="btn btn-primary">編集</button></a>
               </td>

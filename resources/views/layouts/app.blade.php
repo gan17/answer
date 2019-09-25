@@ -43,7 +43,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">ログイン</a></li>
+                            <li><a href="{{ route('system') }}">ログイン</a></li>
                             <li><a href="{{ route('register') }}">登録</a></li>
                         @else
                             <li class="dropdown">
@@ -76,5 +76,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/deleteAll.js') }}"></script>
+
 </body>
 </html>

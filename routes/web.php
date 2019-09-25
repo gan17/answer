@@ -15,26 +15,21 @@
      phpinfo();
  });
 
+ Route::get('/', 'FrontController@index')->name('index');
+ Route::post('/confirm', 'FrontController@confirm')->name('confirm');
+ Route::get('/create', 'FrontController@create');
+ Route::post('/', 'FrontController@store')->name('save');
+
 //ログイン
 Auth::routes();
 
-Route::get('system', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('system', 'Auth\LoginController@showLoginForm')->name('system');
 Route::post('system/login', 'Auth\LoginController@login');
 Route::post('system/logout', 'Auth\LoginController@logout')->name('logout');
 
-//アンケート一覧画面
-Route::get('system/answers/', 'AnswersController@index');
-Route::get('system/answers/', 'AnswersController@list');
+Route::get('/system/answers', 'AnswersController@index');
+Route::get('/system/answers/{id}', 'AnswersController@show');
+Route::delete('/system/answers/{id}', 'AnswersController@destroy');
+Route::delete('answersDeleteAll', 'AnswersController@deleteAll');
 
-//アンケート入力画面
-Route::get('/', 'FrontController@index')->name('index');
-
-//確認画面
-Route::post('/confirm', 'FrontController@confirm')->name('confirm');
-
-//アンケート保存
-Route::post('/', 'FrontController@store')->name('save');
-
-Route::get('home', 'HomeController@index')->name('home');
-Route::get('system', 'HomeController@index')->name('home');
-Route::post('/system/answers/', 'HomeController@index')->name('home');
+Route::resource('/system/answers','AnswersController');

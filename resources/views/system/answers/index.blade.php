@@ -95,7 +95,6 @@
               <th scope="col"></th>
             </tr>
           </thead>
-          @if($answers->count())
             <!-- アンケート一覧 -->
             @foreach($answers as $row)
           <tbody>
@@ -118,12 +117,13 @@
             </tr>
           </tbody>
           @endforeach
-          @else
-                <div class="alert alert-warning">
-                  <p align="center">該当するアンケートはありません</p>
-                </div>
-          @endif
         </table>
+        @if($answers->count())
+        @else
+              <div class="alert alert-warning">
+                <p align="center">該当するアンケートはありません</p>
+              </div>
+        @endif
         <br><br>
     </div>
   </div>

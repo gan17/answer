@@ -14,7 +14,7 @@
          <table>
             <tr>
               <td style="width:40%">
-                氏名<input type="text" name="s_fullname" class="form-control" placeholder="入力してください" />
+                氏名<input type="text" name="s_fullname" class="form-control" value="{{ old('s_fullname') }}" placeholder="入力してください" />
               </td>
               <td>年代
                <select name="s_age_id" class="form-control">
@@ -22,8 +22,8 @@
                  @if(isset($ages))
 
                    @foreach ($ages as $age)
-                     <option value="{{ $age->sort }}">
-                        {{ $age->age }}
+                     <option value="{{ $age->sort }}" {!! old('s_age_id') == "$age->sort" ? 'selected="selected"' : '' !!}>
+                         {{ $age->age }}
                      </option>
                    @endforeach
 
@@ -34,19 +34,19 @@
              </td>
               <td>性別
                 <div class="form-group">
-                  <input type="radio" name="s_gender" value="0" checked> すべて
-                  <input type="radio" name="s_gender" value="1"> 男性　
-                  <input type="radio" name="s_gender" value="2"> 女性<br>
+                  <input type="radio" name="s_gender" value="" {!! old('s_gender') == "" ? 'checked="checked"' : '' !!} checked> すべて
+                  <input type="radio" name="s_gender" value="1" {!! old('s_gender') == "1" ? 'checked="checked"' : '' !!}> 男性　
+                  <input type="radio" name="s_gender" value="2" {!! old('s_gender') == "2" ? 'checked="checked"' : '' !!}> 女性
                 </div>
               </td>
           </tr>
           <tr>
-              <td>登録日　<input type="text" name="s_date_from" class="form-control" value="" placeholder="年/月/日" /></td>
-              <td>〜<input type="text" name="s_date_to" class="form-control" value="" placeholder="年/月/日" /></td>
-              <td>メール送信許可  <input type="checkbox" name="s_is_send_email"  value="1">　許可のみ<br></td>
+              <td>登録日　<input type="text" name="s_date_from" class="form-control" value="{{ old('s_date_from') }}" placeholder="年/月/日" /></td>
+              <td>〜<input type="text" name="s_date_to" class="form-control" value="{{ old('s_date_to')}}" placeholder="年/月/日" /></td>
+              <td>メール送信許可  <input type="checkbox" name="s_is_send_email" value="1" {!! old('s_is_send_email') == 1 ? 'checked="checked"' : '' !!}>　許可のみ<br></td>
           </tr>
           <tr>
-              <td>キーワード<input type="text" name="s_keyword" class="form-control"  placeholder="キーワードを入力" /></td>
+              <td>キーワード<input type="text" name="s_keyword" class="form-control" value="{{ old('s_keyword')}}" placeholder="キーワードを入力" /></td>
               <td></td>
               <td></td>
           </tr>

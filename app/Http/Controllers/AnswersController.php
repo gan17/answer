@@ -25,13 +25,22 @@ class AnswersController extends Controller
     public function index(Request $request)
     {
 
+      Request::flashOnly('s_fullname',
+                         's_gender',
+                         's_age_id',
+                         's_is_send_email',
+                         's_date_from',
+                         's_date_to',
+                         's_keyword'
+                        );
+
       $s_fullname = Request::input('s_fullname');
       $s_gender = Request::input('s_gender');
       $s_age_id = Request::input('s_age_id');
       $s_is_send_email = Request::input('s_is_send_email');
-      $s_keyword = Request::input('s_keyword');
       $s_date_from = Request::input('s_date_from');
       $s_date_to = Request::input('s_date_to');
+      $s_keyword = Request::input('s_keyword');
 
       $query = Answer::query();
 

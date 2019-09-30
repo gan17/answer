@@ -70,13 +70,20 @@
         <input type="hidden" name="gender" class="form-control" value="{{ $gender }}">
         <input type="hidden" name="age_id" class="form-control" value="{{ $age_id }}">
         <input type="hidden" name="email" class="form-control" value="{{ $email }}">
-        <input type="hidden" name="is_send_email" class="form-control" value="{{ $is_send_email }}">
+
+        <!-- is_send_email」emplyの場合、is_send_email = 0 -->
+        @if($is_send_email == 1)
+          <input type="hidden" name="is_send_email" class="form-control" value="{{ $is_send_email }}">
+        @else
+          <input type="hidden" name="is_send_email" class="form-control" value="0">
+        @endif
+
         <input type="hidden" name="feedback" class="form-control" value="{!! nl2br(htmlspecialchars($feedback, ENT_QUOTES, 'UTF-8', false), false) !!}">
 
-        {{-- 入力画面に戻る --}}
+        <!-- 入力画面に戻る -->
         <a href="javascript:history.back();" class="btn btn-primary">再入力</a>
 
-        {{-- アンケート保存する --}}
+        <!-- アンケート保存する -->
         <button type="submit" name="action" value="back" class="btn btn-success">送信</button>
       </form>
 

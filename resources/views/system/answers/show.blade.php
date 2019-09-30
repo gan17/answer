@@ -20,7 +20,12 @@
 
         <tr>
           <td>性別</td>
-          <td>{{$answers->gender}}</td>
+          <td>@if($answers->gender == 1)
+                  男性
+              @else
+                  女性
+              @endif
+          </td>
         </tr>
 
         <tr>
@@ -35,7 +40,12 @@
 
         <tr>
           <td>メール送信可否</td>
-          <td>{{$answers->is_send_email}}</td>
+          <td>@if($answers->is_send_email == 1)
+                  送信許可
+              @else
+                  送信不許可
+              @endif
+          </td>
         </tr>
 
         <tr>

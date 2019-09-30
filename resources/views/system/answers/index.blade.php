@@ -11,54 +11,84 @@
       <div class="well">
         <form method="GET" action="{{route('answers.index')}}" enctype="multipart/form-data">
          {{csrf_field()}}
-         <table>
+          <table>
             <tr>
-              <td style="width:40%">
-                氏名<input type="text" name="s_fullname" class="form-control" value="{{ old('s_fullname') }}" placeholder="入力してください" />
-              </td>
-              <td>年代
-               <select name="s_age_id" class="form-control">
-                 <option value="">選択して下さい</option>
-                 @if(isset($ages))
-
-                   @foreach ($ages as $age)
-                     <option value="{{ $age->sort }}" {!! old('s_age_id') == "$age->sort" ? 'selected="selected"' : '' !!}>
-                         {{ $age->age }}
-                     </option>
-                   @endforeach
-
-                 @else
-                   <p>not found..!</p>
-                 @endif
-               </select>
-             </td>
-              <td>性別
+              <td style="width:8%" align="center">氏名</td>
+              <td style="width:20%">
                 <div class="form-group">
-                  <input type="radio" name="s_gender" value="" {!! old('s_gender') == "" ? 'checked="checked"' : '' !!} checked> すべて
-                  <input type="radio" name="s_gender" value="1" {!! old('s_gender') == "1" ? 'checked="checked"' : '' !!}> 男性　
-                  <input type="radio" name="s_gender" value="2" {!! old('s_gender') == "2" ? 'checked="checked"' : '' !!}> 女性
+                  <input type="text" name="s_fullname" class="form-control" value="{{ old('s_fullname') }}" placeholder="入力してください" />
                 </div>
               </td>
-          </tr>
-          <tr>
-              <td>登録日　<input type="text" name="s_date_from" class="form-control" value="{{ old('s_date_from') }}" placeholder="年/月/日" /></td>
-              <td>〜<input type="text" name="s_date_to" class="form-control" value="{{ old('s_date_to')}}" placeholder="年/月/日" /></td>
-              <td>メール送信許可  <input type="checkbox" name="s_is_send_email" value="1" {!! old('s_is_send_email') == 1 ? 'checked="checked"' : '' !!}>　許可のみ<br></td>
-          </tr>
-          <tr>
-              <td>キーワード<input type="text" name="s_keyword" class="form-control" value="{{ old('s_keyword')}}" placeholder="キーワードを入力" /></td>
-              <td></td>
-              <td></td>
-          </tr>
+
+              <td style="width:5%" align="center">年代</td>
+              <td style="width:20%">
+                <div class="form-group">
+                  <select name="s_age_id" class="form-control">
+                    <option value="">選択して下さい</option>
+                    @if(isset($ages))
+
+                      @foreach ($ages as $age)
+                        <option value="{{ $age->sort }}" {!! old('s_age_id') == "$age->sort" ? 'selected="selected"' : '' !!}>
+                            {{ $age->age }}
+                        </option>
+                      @endforeach
+
+                    @else
+                      <p>not found..!</p>
+                    @endif
+                  </select>
+                </div>
+              </td>
+
+              <td style="width:10%" align="center">性別 </td>
+              <td style="width:15%">
+                <div class="form-group">
+                  <input type="radio" name="s_gender" value="" {!! old('s_gender') == "" ? 'checked="checked"' : '' !!} checked> すべて
+                  <input type="radio" name="s_gender" value="1" {!! old('s_gender') == "1" ? 'checked="checked"' : '' !!}>  男性　
+                  <input type="radio" name="s_gender" value="2" {!! old('s_gender') == "2" ? 'checked="checked"' : '' !!}>  女性
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center">登録日　</td>
+              <td>
+                <div class="form-group">
+                  　<input type="text" name="s_date_from" class="form-control" value="{{ old('s_date_from') }}" placeholder="年/月/日" />
+                </div>
+              </td>
+
+              <td align="center">〜</td>
+              <td>
+                <div class="form-group">
+                  <input type="text" name="s_date_to" class="form-control" value="{{ old('s_date_to')}}" placeholder="年/月/日" /></td>
+                </div>
+              </td>
+
+              <td align="center">メール送信許可</td>
+              <td>
+                <div class="form-group">
+                  <input type="checkbox" name="s_is_send_email" value="1" {!! old('s_is_send_email') == 1 ? 'checked="checked"' : '' !!}>　許可のみ<br></td>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>キーワード</td>
+              <td style="width:20%">
+                <div class="form-group">
+                  <input type="text" name="s_keyword" class="form-control" value="{{ old('s_keyword')}}" placeholder="キーワードを入力" /></td>
+                </div>
+              </td>
+            </tr>
         </table>
 
-       <div class="form-group" align="center">
-         <br/>
-         <a href="{{route('answers.index')}}" onclick="dummy(0);return false;" class="btn btn-default">リセット</a>
-         <input type="submit" class="btn btn-success" value=" 検索 "/>
-       </div>
-
-       </form>
+        <div class="form-group" align="center">
+          <br/>
+          <a href="{{route('answers.index')}}" onclick="dummy(0);return false;" class="btn btn-default">リセット</a>
+          <input type="submit" class="btn btn-success" value=" 検索 "/>
+        </div>
+     </form>
 　　</div>
 
     <div class="form-group">

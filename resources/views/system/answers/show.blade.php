@@ -50,7 +50,7 @@
 
         <tr>
           <td>ご意見</td>
-          <td>{!! nl2br(htmlspecialchars($answers->feedback, ENT_QUOTES, 'UTF-8', false), false) !!}</td>
+          <td>{!!  str_replace(PHP_EOL, '', $answers->feedback) !!}</td>
         </tr>
 
         <tr>
